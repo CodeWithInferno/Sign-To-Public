@@ -1,0 +1,13 @@
+dataset:
+  train_dir: "/Users/pratham/Programming/Hackathon/keypoints_data/train"
+  test_dir: "/Users/pratham/Programming/Hackathon/keypoints_data/test"
+  batch_size: 60
+
+model:
+  hidden_dim: 64
+  num_classes: 29
+
+training:
+  lr: 0.001
+  epochs: 30
+  checkpoint_path: "/Users/pratham/Programming/Hackathon/models/asl_gnn.pth"

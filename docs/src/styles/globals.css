@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.prose {
+  @apply text-foreground;
+}
+
+.prose a {
+  @apply text-primary underline-offset-4;
+}
+
+.prose code {
+  @apply rounded bg-muted px-1 py-0.5;
+}
+
+.prose pre {
+  @apply bg-muted;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+}
+
+.prose img {
+  @apply rounded-lg border;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply scroll-m-20;
+}
+
+.prose h2 {
+  @apply mb-4 pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+}
+
+.prose h3 {
+  @apply mb-4 text-2xl font-semibold tracking-tight;
+}
+
+.prose h4 {
+  @apply mb-4 text-xl font-semibold tracking-tight;
+}
+
+.prose blockquote {
+  @apply mt-6 border-l-2 pl-6 italic;
+}
+
+.prose ul {
+  @apply my-6 ml-6 list-disc;
+}
+
+.prose ol {
+  @apply my-6 ml-6 list-decimal;
+}
+
+.prose li {
+  @apply mt-2;
+}
+
+.prose hr {
+  @apply my-4 md:my-8;
+}
+
+.prose table {
+  @apply my-6 w-full overflow-y-auto;
+}
+
+.prose tr {
+  @apply m-0 border-t p-0 even:bg-muted;
+}
+
+.prose th {
+  @apply border px-4 py-2 text-left font-bold;
+}
+
+.prose td {
+  @apply border px-4 py-2 text-left;
+}
+
+.prose thead {
+  @apply bg-muted;
+}
+
+.prose thead th {
+  @apply border-b;
+}
+
+.prose :where(tbody tr:last-child) {
+  @apply border-b;
+}
+
+.prose :where(tbody tr:last-child td) {
+  @apply pb-2;
+}
+
+.prose :where(tbody tr:first-child td) {
+  @apply pt-2;
+}
+
+.prose :where(thead th:first-child) {
+  @apply pl-4;
+}
+
+.prose :where(thead th:last-child) {
+  @apply pr-4;
+}
+
+.prose :where(tbody td:first-child) {
+  @apply pl-4;
+}
+
+.prose :where(tbody td:last-child) {
+  @apply pr-4;
+}
+
+.prose :where(code:not(pre code))::before,
+.prose :where(code:not(pre code))::after {
+  content: '';
+}
+
+.prose pre[class*='language-'] {
+  @apply mb-4 mt-6 overflow-x-auto rounded-lg bg-muted py-4;
+}
+
+.prose :where(pre[class*='language-'] code)::before,
+.prose :where(pre[class*='language-'] code)::after {
+  @apply hidden;
+}
+
+.prose code[class*='language-'],
+.prose pre[class*='language-'] {
+  @apply text-sm;
+}
+
+.prose ::marker {
+  @apply text-muted-foreground;
+}
+
+.prose :where(p)::selection {
+  @apply bg-muted;
+}

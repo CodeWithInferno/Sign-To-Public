@@ -5,7 +5,7 @@ import { typography } from '@/constants/Layout';
 
 interface ThemedTextProps extends TextProps {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'caption' | 'small';
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold';
+  weight?: 'regular' | 'italic';
   color?: keyof typeof variantColors | string;
 }
 
@@ -26,7 +26,7 @@ export default function ThemedText({
 }: ThemedTextProps) {
   const { colors } = useTheme();
   
-  const fontFamily = `Inter-${weight.charAt(0).toUpperCase() + weight.slice(1)}`;
+  const fontFamily = `Radley-${weight.charAt(0).toUpperCase() + weight.slice(1)}`;
   
   const getColorValue = () => {
     if (color in variantColors) {
