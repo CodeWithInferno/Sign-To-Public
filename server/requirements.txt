@@ -1,0 +1,6 @@
+flask==2.0.1
+flask-cors==3.0.10
+mediapipe==0.10.21
+tensorflow==2.15.0
+numpy==1.26.4
+opencv-python-headless

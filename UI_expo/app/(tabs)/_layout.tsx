@@ -28,13 +28,17 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: colors.card,
           borderTopColor: colors.border,
-          height: 60 + insets.bottom,
+          height: 70 + insets.bottom,
           paddingBottom: insets.bottom,
-          paddingTop: 8,
+          paddingTop: 10,
         },
         tabBarLabelStyle: {
-          fontFamily: 'Inter-Medium',
-          fontSize: 12,
+          fontFamily: 'Radley-Regular',
+          fontSize: 14,
+        },
+        tabBarIconStyle: {
+          width: 30,
+          height: 30,
         },
         headerStyle: {
           backgroundColor: colors.card,
@@ -43,7 +47,7 @@ export default function TabLayout() {
           borderBottomColor: colors.border,
         },
         headerTitleStyle: {
-          fontFamily: 'Inter-SemiBold',
+          fontFamily: 'Radley-Regular',
           color: colors.text,
           fontSize: 16,
         },
@@ -54,8 +58,8 @@ export default function TabLayout() {
         options={{
           title: 'Translate',
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Camera size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Camera size={28} color={color} />
           ),
         }}
       />
@@ -65,19 +69,8 @@ export default function TabLayout() {
           title: 'History',
           headerShown: true,
           headerTitle: 'Translation History',
-          tabBarIcon: ({ color, size }) => (
-            <History size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="learn"
-        options={{
-          title: 'Learn',
-          headerShown: true,
-          headerTitle: 'Learn Sign Language',
-          tabBarIcon: ({ color, size }) => (
-            <Info size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <History size={28} color={color} />
           ),
         }}
       />
@@ -86,8 +79,8 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           headerTitle: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <Settings size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Settings size={28} color={color} />
           ),
         }}
       />

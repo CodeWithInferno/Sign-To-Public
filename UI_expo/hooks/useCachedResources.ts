@@ -7,10 +7,8 @@ export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   
   const [fontsLoaded] = useFonts({
-    'Inter-Regular': Inter_400Regular,
-    'Inter-Medium': Inter_500Medium,
-    'Inter-SemiBold': Inter_600SemiBold,
-    'Inter-Bold': Inter_700Bold,
+    'Radley-Regular': 'https://fonts.gstatic.com/s/radley/v22/LYjDdGzinEIjCN1NpwNFh1gnVA.woff2',
+    'Radley-Italic': 'https://fonts.gstatic.com/s/radley/v22/LYjBdGzinEIjCN1NojNHjV8FVtff.woff2',
   });
 
   // Load any resources or data that we need prior to rendering the app

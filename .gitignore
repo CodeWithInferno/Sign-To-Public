@@ -2,3 +2,10 @@ venv/
 venv
 data
 data/
+keypoints_data
+keypoints_data/
+__pycache__
+data.zip.DS_Store
+.DS_Store
+.DS_Store
+.DS_Store

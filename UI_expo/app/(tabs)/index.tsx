@@ -1,97 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, SafeAreaView, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, SafeAreaView, Platform, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useTheme } from '@/hooks/useThemeContext';
 import ThemedText from '@/components/ThemedText';
 import CameraWithOverlay from '@/components/CameraWithOverlay';
 import AnimatedTranslation from '@/components/AnimatedTranslation';
-import QuickPhrases from '@/components/QuickPhrases';
 import { useTranslation } from '@/context/TranslationContext';
-import * as Speech from 'expo-speech';
 import Layout from '@/constants/Layout';
-import ThemedView from '@/components/ThemedView';
+
+const { height } = Dimensions.get('window');
 
 export default function TranslateScreen() {
   const { colors } = useTheme();
   const { addTranslation, currentTranslation, setCurrentTranslation } = useTranslation();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
 
-  // Handle text recognition from the camera
   const handleTextRecognized = (text: string) => {
     setIsProcessing(true);
     
-    // Simulate AI processing delay
     setTimeout(() => {
       setCurrentTranslation(text);
       addTranslation(text);
       setIsProcessing(false);
-      
-      // Speak the text automatically
-      Speech.speak(text, {
-        language: 'en',
-        pitch: 1.0,
-        rate: 0.9,
-      });
     }, 1500);
   };
-  
-  // Handle quick phrase selection
-  const handleQuickPhraseSelected = (phrase: string) => {
-    setCurrentTranslation(phrase);
-    addTranslation(phrase);
-    
-    // Speak the phrase
-    Speech.speak(phrase, {
-      language: 'en',
-      pitch: 1.0,
-      rate: 0.9,
-    });
-  };
-  
-  // Clear the current translation after a delay
-  useEffect(() => {
-    if (currentTranslation) {
-      const timeout = setTimeout(() => {
-        setCurrentTranslation(null);
-      }, 5000);
-      
-      return () => clearTimeout(timeout);
-    }
-  }, [currentTranslation]);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <StatusBar style="auto" />
+    <SafeAreaView style={[styles.container, { backgroundColor: '#463f3a' }]}>
+      <StatusBar style="light" />
       
-      <View style={styles.header}>
-        <ThemedText variant="h2" weight="bold" style={styles.title}>
-          Sign Translator
-        </ThemedText>
-        <ThemedText variant="body" color="secondary" style={styles.subtitle}>
-          Translate sign language in real-time
-        </ThemedText>
-      </View>
-      
-      <ThemedView 
-        variant="card" 
-        style={[styles.cameraContainer, { borderColor: colors.border }]}
-      >
-        <CameraWithOverlay 
-          onTextRecognized={handleTextRecognized}
-          isProcessing={isProcessing}
-        />
-      </ThemedView>
-      
-      {currentTranslation && (
-        <View style={styles.translationContainer}>
-          <AnimatedTranslation 
-            text={currentTranslation}
-            onComplete={() => {}}
+      <View style={styles.content}>
+        <View style={styles.cameraSection}>
+          <CameraWithOverlay 
+            onTextRecognized={handleTextRecognized}
+            isProcessing={isProcessing}
+            isRecording={isRecording}
+            onRecordingChange={setIsRecording}
           />
         </View>
-      )}
-      
-      <QuickPhrases onSelectPhrase={handleQuickPhraseSelected} />
+        
+        <View style={[styles.translationSection, { backgroundColor: '#f4f3ee' }]}>
+          <ThemedText 
+            variant="h3" 
+            weight="semibold" 
+            style={[styles.sectionTitle, { color: '#463f3a' }]}
+          >
+            Translation Output
+          </ThemedText>
+          
+          {currentTranslation ? (
+            <AnimatedTranslation 
+              text={currentTranslation}
+              onComplete={() => {}}
+            />
+          ) : (
+            <View style={styles.placeholderContainer}>
+              <ThemedText 
+                color="secondary" 
+                style={[styles.placeholder, { color: '#8a817c' }]}
+              >
+                {isRecording 
+                  ? "Recording... Sign language will be translated here"
+                  : "Start recording to see sign language translation"}
+              </ThemedText>
+            </View>
+          )}
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -101,26 +77,45 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-  header: {
-    paddingHorizontal: Layout.spacing.lg,
-    paddingTop: Layout.spacing.lg,
-    paddingBottom: Layout.spacing.md,
-  },
-  title: {
-    marginBottom: Layout.spacing.xs,
-  },
-  subtitle: {
-    marginBottom: Layout.spacing.lg,
-  },
-  cameraContainer: {
+  content: {
     flex: 1,
-    margin: Layout.spacing.md,
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    padding: Layout.spacing.md,
+    gap: Layout.spacing.md,
+  },
+  cameraSection: {
+    flex: Platform.OS === 'web' ? 0.6 : 0.7,
     borderRadius: Layout.borderRadius.lg,
     overflow: 'hidden',
-    borderWidth: 1,
+    backgroundColor: '#000',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  translationContainer: {
-    paddingHorizontal: Layout.spacing.md,
-    marginTop: Layout.spacing.md,
+  translationSection: {
+    flex: Platform.OS === 'web' ? 0.4 : 0.3,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.lg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  sectionTitle: {
+    marginBottom: Layout.spacing.lg,
+    textAlign: 'center',
+  },
+  placeholderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: Layout.spacing.xl,
+  },
+  placeholder: {
+    textAlign: 'center',
+    lineHeight: 24,
   },
 });
